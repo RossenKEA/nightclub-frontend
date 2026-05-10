@@ -11,3 +11,21 @@ export async function getEvents() {
 
     return res.json();
 }
+
+export async function getEvent(id: string) {
+    const res = await fetch(`${API_URL}/events/${id}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Could not fetch event");
+    }
+
+    return res.json();
+}
+
+export async function getFeaturedEvents() {
+    const events = await getEvents();
+
+    return events.filter((event: any) => event.isFeatured);
+}

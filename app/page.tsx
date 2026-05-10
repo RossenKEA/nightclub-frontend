@@ -1,23 +1,21 @@
-import { getEvents } from "@/lib/api";
+import { getFeaturedEvents } from "@/lib/api";
+import EventCard from "@/components/EventCard";
 
 export default async function Home() {
-  const events = await getEvents();
-  const featuredEvents = events.filter((event: any) => event.isFeatured);
+  const featuredEvents = await getFeaturedEvents();
 
   return (
-    <main>
-      <h1>Night Club</h1>
+    <main className="p-10">
+      <h1 className="text-5xl mb-10">Night Club</h1>
 
       <section>
-        <h2>Featured Events</h2>
+        <h2 className="text-3xl mb-6">Featured Events</h2>
 
-        {featuredEvents.map((event: any) => (
-          <article key={event.id}>
-            <h3>{event.title || event.name}</h3>
-            <p>{event.excerpt}</p>
-            <p>{event.date}</p>
-          </article>
-        ))}
+        <div className="grid gap-8">
+          {featuredEvents.map((event: any) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
       </section>
     </main>
   );

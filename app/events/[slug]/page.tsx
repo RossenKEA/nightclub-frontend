@@ -1,23 +1,14 @@
+import { getEvent } from "@/lib/api";
+
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-async function getEvent(slug: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events/${slug}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Could not fetch event");
-  }
-
-  return res.json();
-}
-
 export default async function EventPage({ params }: Props) {
-  const event = await getEvent(params.slug);
+  const { slug } = await params;
+  const event = await getEvent(slug);
 
   return (
     <main className="p-10">
