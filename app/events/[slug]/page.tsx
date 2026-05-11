@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getEvent } from "@/lib/api";
 import { getComments } from "@/lib/api";
+import CommentForm from "@/components/CommentForm";
 
 type Props = {
   params: Promise<{
@@ -126,9 +127,11 @@ export default async function EventPage({ params }: Props) {
       </article>
     ))}
   </div>
-</section>
-      </section>
-    </main>
+
+  <CommentForm eventId={event.id} />
+  </section>
+  </section>
+  </main>
   );
 }
 
