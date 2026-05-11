@@ -60,3 +60,19 @@ export async function postComment(data: any) {
 
     return res.json();
 }
+
+export async function getReservations(eventId?: string) {
+    const url = eventId
+        ? `${API_URL}/reservations?eventId=${eventId}`
+        : `${API_URL}/reservations`;
+
+    const res = await fetch(url, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Could not fetch reservations");
+    }
+
+    return res.json();
+}
