@@ -76,3 +76,15 @@ export async function getReservations(eventId?: string) {
 
     return res.json();
 }
+
+export async function getGallery() {
+    const res = await fetch(`${API_URL}/gallery`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Could not fetch gallery");
+    }
+
+    return res.json();
+}
