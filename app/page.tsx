@@ -1,5 +1,6 @@
 import { getFeaturedEvents } from "@/lib/api";
 import EventCard from "@/components/EventCard";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export default async function Home() {
   const featuredEvents = await getFeaturedEvents();
@@ -17,6 +18,18 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      <section className="px-6 py-20 text-center">
+  <h2 className="mb-6 text-3xl font-bold uppercase tracking-wider">
+    Join Our Mailing List
+  </h2>
+
+  <p className="mx-auto mb-8 max-w-xl text-white/70">
+    Subscribe to receive news about upcoming events and club nights.
+  </p>
+
+  <NewsletterForm />
+</section>
     </main>
   );
 }
