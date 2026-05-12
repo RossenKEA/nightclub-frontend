@@ -1,12 +1,14 @@
 import { getFeaturedEvents } from "@/lib/api";
 import EventCard from "@/components/EventCard";
 import NewsletterForm from "@/components/NewsletterForm";
+import Hero from "@/components/Hero";
 
 export default async function Home() {
   const featuredEvents = await getFeaturedEvents();
 
   return (
     <main className="p-10">
+      <Hero />
       <h1 className="text-5xl mb-10">Night Club</h1>
 
       <section>
