@@ -2,7 +2,7 @@ import { getFeaturedEvents } from "@/lib/api";
 import EventCard from "@/components/EventCard";
 import NewsletterForm from "@/components/NewsletterForm";
 import Hero from "@/components/Hero";
-import GallerySection from "@/components/GallerySection";
+import GallerySectionServer from "@/components/GallerySectionServer";
 
 export default async function Home() {
   const featuredEvents = await getFeaturedEvents();
@@ -24,7 +24,7 @@ export default async function Home() {
 
       <section className="px-6 py-20 text-center">
 
-  <GallerySection />
+  <GallerySectionServer />
   <h2 className="mb-6 text-3xl font-bold uppercase tracking-wider">
     Join Our Mailing List
   </h2>
