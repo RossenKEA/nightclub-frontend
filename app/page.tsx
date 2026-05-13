@@ -3,6 +3,7 @@ import EventCard from "@/components/EventCard";
 import NewsletterForm from "@/components/NewsletterForm";
 import Hero from "@/components/Hero";
 import GallerySectionServer from "@/components/GallerySectionServer";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default async function Home() {
   const featuredEvents = await getFeaturedEvents();
@@ -22,9 +23,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 text-center">
+      <GallerySectionServer />
 
-  <GallerySectionServer />
+      <MusicPlayer />
+
+      <section className="px-6 py-20 text-center">
   <h2 className="mb-6 text-3xl font-bold uppercase tracking-wider">
     Join Our Mailing List
   </h2>
@@ -34,7 +37,7 @@ export default async function Home() {
   </p>
 
   <NewsletterForm />
-  </section>
+      </section>
   </main>
   );
 }
