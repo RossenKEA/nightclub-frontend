@@ -1,28 +1,37 @@
-import { getEvents } from "@/lib/api";
-import Link from "next/link";
+import { getEventsPaginated } from "@/lib/api";
+import EventCard, { type Event } from "@/components/EventCard";
+import Pagination from "@/components/Pagination";
 
-export default async function EventsPage() {
-  const events = await getEvents();
+const EVENTS_PER_PAGE = 3;
+
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function EventsPage({ searchParams }: Props) {
+  const { page } = await searchParams;
+  const currentPage = Math.max(1, Number(page) || 1);
+
+  const { events, total } = await getEventsPaginated(currentPage, EVENTS_PER_PAGE);
+  const totalPages = Math.ceil(total / EVENTS_PER_PAGE);
 
   return (
-    <main className="p-10">
-      <h1 className="text-4xl mb-10">Events</h1>
+    <main className="bg-black text-white">
+      <section className="relative flex h-36 items-center justify-center">
+        <h1 className="text-center text-4xl font-bold uppercase tracking-[0.15em]">
+          Events
+        </h1>
+      </section>
 
-      <div className="grid gap-8">
-        {events.map((event: any) => (
-        <Link key={event.id} href={`/events/${event.id}`}>
-            <article className="border border-white/10 p-6 rounded-xl">
-            <h2 className="text-2xl">{event.title || event.name}</h2>
+      <section className="mx-auto max-w-5xl px-6 pb-24">
+        <div className="grid gap-8">
+          {events.map((event: Event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
 
-            <p>ID: {event.id}</p>
-            <p>Slug: {event.slug}</p>
-
-            <p>{event.excerpt}</p>
-            <p>{event.date}</p>
-            </article>
-        </Link>
-        ))}
-      </div>
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      </section>
     </main>
   );
 }
