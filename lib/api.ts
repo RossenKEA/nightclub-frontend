@@ -12,6 +12,20 @@ export async function getEvents() {
     return res.json();
 }
 
+export async function getEventsPaginated(page: number = 1, limit: number = 3) {
+    const res = await fetch(`${API_URL}/events?_page=${page}&_limit=${limit}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Could not fetch events");
+    }
+
+    const total = Number(res.headers.get("X-Total-Count") ?? 0);
+    const events = await res.json();
+    return { events, total };
+}
+
 export async function getEvent(id: string) {
     const res = await fetch(`${API_URL}/events/${id}`, {
         cache: "no-store",
